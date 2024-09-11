@@ -1,7 +1,11 @@
 <script lang="ts">
+	import Tab, { Label } from '@smui/tab';
+	import TabBar from '@smui/tab-bar';
 	import Card from '@smui/card';
 	import { HighlightAuto } from 'svelte-highlight';
 	import ashes from 'svelte-highlight/styles/ashes';
+
+	const tagItems = ['typescript', 'clone', 'tree', 'format', 'file', 'dom', 'array', 'window'];
 
 	const codeItems = [
 		{
@@ -11,9 +15,10 @@
  * @returns 
  */
 export const getAssetsFile = (url: string): string => {
-  return new URL(\`../assets/\$\{url\}\`, import.meta.url).href
+  return new URL(\`../assets/\${url}\`, import.meta.url).href
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'assets']
 		},
 		{
 			code: `/**
@@ -47,7 +52,8 @@ export const deepClone = (obj, map = new WeakMap()) => {
 
   return clone;
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'clone']
 		},
 		{
 			code: `/**
@@ -71,7 +77,8 @@ export function flatten(arr: TreeNode[], type?: boolean): TreeNode[] {
     );
   }, []);
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'tree']
 		},
 		{
 			code: `/**
@@ -87,7 +94,8 @@ export function formatAmount(num?: string | number, dec: number = 2): string {
     ","
   );
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'format']
 		},
 		{
 			code: `/**
@@ -110,7 +118,8 @@ export function fileToJson(file: Blob): Promise<any> {
     reader.readAsText(new Blob([file]), "utf-8"); // 按照utf-8编码解析
   });
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'file']
 		},
 		{
 			code: `/**
@@ -137,7 +146,8 @@ function getParents(element: HTMLElement, className: string): HTMLElement | null
   getParentNode(element, className);
   return node;
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'dom']
 		},
 		{
 			code: `/**
@@ -153,7 +163,8 @@ export function unique<T = any>(arr: T[], key: string): T[] {
     return !map.has(_item[key]) && map.set(_item[key], 1);
   });
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'array']
 		},
 		{
 			code: `/**
@@ -164,7 +175,8 @@ export function unique<T = any>(arr: T[], key: string): T[] {
 export function es6Unique<T>(arr: T[]): T[] {
   return Array.from(new Set(arr));
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'array']
 		},
 		{
 			code: `/**
@@ -187,14 +199,25 @@ export function openWindow(
   noreferrer && feature.push("noreferrer=yes");
   window.open(url, target, feature.join(","));
 }`,
-			language: 'typescript'
+			language: 'typescript',
+			tag: ['typescript', 'window']
 		}
 	];
+
+	let activeTab = tagItems[0];
 </script>
 
 <svelte:head>
 	{@html ashes}
 </svelte:head>
+
+<div class="tag-container">
+	<TabBar tabs={tagItems} let:tab active={activeTab}>
+		<Tab {tab}>
+			<Label>{tab}</Label>
+		</Tab>
+	</TabBar>
+</div>
 
 <div class="code-container">
 	{#each codeItems as item, i}
