@@ -50,40 +50,144 @@ export const deepClone = (obj, map = new WeakMap()) => {
 			language: 'typescript'
 		},
 		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
+			code: `/**
+ * @description 树状结构扁平化
+ * @param {boolean} type 是否需要返回父元素
+ * @returns {array} 返回扁平化数组
+ */
+interface TreeNode {
+  children?: TreeNode[];
+  [key: string]: any;
+}
+
+export function flatten(arr: TreeNode[], type?: boolean): TreeNode[] {
+  return arr.reduce((flat: TreeNode[], toFlatten: TreeNode) => {
+    return flat.concat(
+      Array.isArray(toFlatten.children)
+        ? type
+          ? [toFlatten].concat(flatten(toFlatten.children, type))
+          : flatten(toFlatten.children, type)
+        : toFlatten
+    );
+  }, []);
+}`,
+			language: 'typescript'
 		},
 		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
+			code: `/**
+ * @description 格式化金额
+ * @param {string | number} num 金额
+ * @param {number} dec 小数位数
+ * @returns {string} 格式化后的金额
+ */
+export function formatAmount(num?: string | number, dec: number = 2): string {
+  if (!num) return "0.00";
+  return (parseFloat(num as string).toFixed(dec) + "").replace(
+    /\B(?=(\d{3})+(?!\d))/g,
+    ","
+  );
+}`,
+			language: 'typescript'
 		},
 		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
+			code: `/**
+ * @description 将文件转换为json
+ * @param {Blob} file 文件
+ * @returns {Promise<any>} 返回json
+ */
+export function fileToJson(file: Blob): Promise<any> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = (res) => {
+      const { result } = res.target as FileReader; // 得到字符串
+      const data = JSON.parse(result as string); // 解析成json对象
+      console.log(data);
+      resolve(data);
+    }; // 成功回调
+    reader.onerror = (err) => {
+      reject(err);
+    }; // 失败回调
+    reader.readAsText(new Blob([file]), "utf-8"); // 按照utf-8编码解析
+  });
+}`,
+			language: 'typescript'
 		},
 		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
+			code: `/**
+ * @description: 获取指定class的父节点
+ * @param {HTMLElement} element 元素
+ * @param {string} className 类名
+ * @returns {HTMLElement | null} 父节点
+ */
+function getParents(element: HTMLElement, className: string): HTMLElement | null {
+  let node: HTMLElement | null = element.parentElement;
+  function getParentNode(element, className) {
+    if (element.className) {
+      if (
+        element &&
+        element.classList.contains(className) &&
+        element.tagName.toLowerCase() != "body"
+      ) {
+        node = element as HTMLElement;
+      } else {
+        getParentNode(element.parentElement, className);
+      }
+    }
+  }
+  getParentNode(element, className);
+  return node;
+}`,
+			language: 'typescript'
 		},
 		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
+			code: `/**
+ * @description: 根据数组中某个对象值去重
+ * @param {T[]} arr 数组
+ * @param {string} key 对象值
+ * @returns {T[]} 去重后的数组
+ */
+export function unique<T = any>(arr: T[], key: string): T[] {
+  const map = new Map();
+  return arr.filter((item) => {
+    const _item = item as any;
+    return !map.has(_item[key]) && map.set(_item[key], 1);
+  });
+}`,
+			language: 'typescript'
 		},
 		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
+			code: `/**
+ * @description: es6数组去重复
+ * @param {T[]} arr 数组
+ * @returns {T[]} 去重后的数组
+ */
+export function es6Unique<T>(arr: T[]): T[] {
+  return Array.from(new Set(arr));
+}`,
+			language: 'typescript'
 		},
 		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
-		},
-		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
-		},
-		{
-			code: 'console.log("Hello, world!");',
-			language: 'javascript'
+			code: `/**
+ * @description: 打开新窗口
+ * @param {string} url 链接
+ * @param {object} opt 配置
+ * @returns {void} 无返回值
+ */
+export function openWindow(
+  url: string,
+  opt?: {
+    target?: TargetContext | string;
+    noopener?: boolean;
+    noreferrer?: boolean;
+  }
+) {
+  const { target = "__blank", noopener = true, noreferrer = true } = opt || {};
+  const feature: string[] = [];
+  noopener && feature.push("noopener=yes");
+  noreferrer && feature.push("noreferrer=yes");
+  window.open(url, target, feature.join(","));
+}`,
+			language: 'typescript'
 		}
 	];
 </script>
@@ -104,9 +208,8 @@ export const deepClone = (obj, map = new WeakMap()) => {
 
 <style lang="scss" scoped>
 	.code-container {
-		height: 100vh;
 		background: #343434;
-		column-count: 2;
+		column-count: 3;
 		column-gap: 10px;
 		padding: 10px;
 		overflow: auto;
