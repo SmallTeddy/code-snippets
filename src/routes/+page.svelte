@@ -198,7 +198,7 @@ export function openWindow(
 
 <div class="code-container">
 	{#each codeItems as item, i}
-		<Card variant="outlined">
+		<Card>
 			<code class="grid-item">
 				<HighlightAuto code={item.code} />
 			</code>
@@ -210,16 +210,17 @@ export function openWindow(
 	.code-container {
 		background: #343434;
 		column-count: 3;
-		column-gap: 10px;
-		padding: 10px;
+		column-gap: 12px;
+		padding: 12px;
+		padding-top: 0;
 		overflow: auto;
 	}
 
 	.grid-item {
 		height: 100%;
+		padding-top: 12px;
 		box-sizing: border-box;
 		break-inside: avoid;
-		padding: 8px;
 		background-color: var(--mdc-theme-secondary, #333);
 		color: var(--mdc-theme-on-secondary, #fff);
 	}
