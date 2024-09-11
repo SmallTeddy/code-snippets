@@ -1,0 +1,12 @@
+{
+  "name": "code-snippets",
+  "uuid": "44007aac-600e-4af7-9831-9f75c7db4568",
+  "icon": "/assets/code.png",
+  "debug": {
+    "entry": "http://localhost:5173",
+    "resource": "public"
+  },
+  "build": {
+    "resource": "dist"
+  }
+}

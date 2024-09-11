@@ -233,7 +233,7 @@ export function openWindow(
 </svelte:head>
 
 <div class="tag-container">
-	<TabBar tabs={tagItems} let:tab bind:active={activeTab} on:click={handleTabChange}>
+	<TabBar tabs={tagItems} let:tab bind:active={activeTab} on:click={handleTabChange} role="codeItems">
 		<Tab {tab}>
 			<Label>{tab}</Label>
 		</Tab>
