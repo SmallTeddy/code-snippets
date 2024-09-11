@@ -5,9 +5,24 @@
 	import { HighlightAuto } from 'svelte-highlight';
 	import ashes from 'svelte-highlight/styles/ashes';
 
-	const tagItems = ['typescript', 'clone', 'tree', 'format', 'file', 'dom', 'array', 'window'];
+	const tagItems: string[] = [
+		'typescript',
+		'clone',
+		'tree',
+		'format',
+		'file',
+		'dom',
+		'array',
+		'window'
+	];
 
-	const codeItems = [
+	type CodeItem = {
+		code: string;
+		language: string;
+		tag: string[];
+	};
+
+	let codeItems: CodeItem[] = [
 		{
 			code: `/**
  * 获取assets静态资源，路径为assets
@@ -204,7 +219,13 @@ export function openWindow(
 		}
 	];
 
+	let filterCodeItems: CodeItem[] = [...codeItems];
+
 	let activeTab = tagItems[0];
+
+	const handleTabChange = (event: CustomEvent<string>) => {
+		filterCodeItems = codeItems.filter((item) => item.tag.includes(activeTab));
+	};
 </script>
 
 <svelte:head>
@@ -212,7 +233,7 @@ export function openWindow(
 </svelte:head>
 
 <div class="tag-container">
-	<TabBar tabs={tagItems} let:tab active={activeTab}>
+	<TabBar tabs={tagItems} let:tab bind:active={activeTab} on:click={handleTabChange}>
 		<Tab {tab}>
 			<Label>{tab}</Label>
 		</Tab>
@@ -220,7 +241,7 @@ export function openWindow(
 </div>
 
 <div class="code-container">
-	{#each codeItems as item, i}
+	{#each filterCodeItems as item, i}
 		<Card>
 			<code class="grid-item">
 				<HighlightAuto code={item.code} />
