@@ -209,7 +209,7 @@ export function openWindow(
 <style lang="scss" scoped>
 	.code-container {
 		background: #343434;
-		column-count: 3;
+		column-count: 2;
 		column-gap: 12px;
 		padding: 12px;
 		padding-top: 0;
