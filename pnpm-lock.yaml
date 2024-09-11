@@ -8,6 +8,12 @@ importers:
 
   .:
     dependencies:
+      '@smui/tab':
+        specifier: ^7.0.0
+        version: 7.0.0(svelte@4.2.19)(typescript@5.5.4)
+      '@smui/tab-bar':
+        specifier: ^7.0.0
+        version: 7.0.0(svelte@4.2.19)(typescript@5.5.4)
       svelte-material-ui:
         specifier: ^7.0.0
         version: 7.0.0(svelte@4.2.19)(typescript@5.5.4)

@@ -40,6 +40,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@smui/tab": "^7.0.0",
+		"@smui/tab-bar": "^7.0.0",
 		"svelte-material-ui": "^7.0.0"
 	}
 }
