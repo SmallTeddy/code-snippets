@@ -107,7 +107,8 @@ export const deepClone = (obj, map = new WeakMap()) => {
 		height: 100vh;
 		background: #343434;
 		column-count: 2;
-		column-gap: 0;
+		column-gap: 10px;
+		padding: 10px;
 		overflow: auto;
 	}
 

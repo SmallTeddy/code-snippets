@@ -95,6 +95,10 @@ button:focus:not(:focus-visible) {
 	}
 }
 
+.mdc-card--outlined {
+	margin-bottom: 10px;
+}
+
 .visually-hidden {
 	border: 0;
 	clip: rect(0 0 0 0);
