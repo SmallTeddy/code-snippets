@@ -244,6 +244,21 @@ export function copyText(text: string) {
   }
   copyText(text);
 }`
+		},
+		{
+			code: `/**
+ * @description: 复制函数
+ * @param {string} text 文字内容
+ * @returns {void} 无返回值
+ */
+ function moveToEnd() {
+	setTimeout(() => {
+	  const scrollContent = document.querySelector('.scroll-content');
+		scrollContent.scrollInoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+	}, 100)
+ }`,
+ 		language: 'javascript',
+		tag: ['javascript', 'window']
 		}
 	];
 
