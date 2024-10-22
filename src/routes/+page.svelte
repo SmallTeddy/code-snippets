@@ -216,6 +216,40 @@ export function openWindow(
 }`,
 			language: 'typescript',
 			tag: ['typescript', 'window']
+		},
+		{
+			language: 'typescript',
+			tag: ['typescript', 'window'],
+			code: `/**
+ * @description: 复制函数
+ * @param {string} text 文字内容
+ * @returns {void} 无返回值
+ */
+export function copyText(text: string) {
+  if (navigator.clipboard) {
+    copyText = (text) => {
+      navigator.clipboard.writeText(text);
+      AnMessage({
+        message: "复制成功!",
+        type: "success",
+      });
+    };
+  } else {
+    copyText = (text) => {
+      const input = document.createElement("input");
+      input.setAttribute("value", text);
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      AnMessage({
+        message: "复制成功!",
+        type: "success",
+      });
+    };
+  }
+  copyText(text);
+}`
 		}
 	];
 
