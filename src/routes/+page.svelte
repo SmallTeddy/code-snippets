@@ -229,10 +229,7 @@ export function copyText(text: string) {
   if (navigator.clipboard) {
     copyText = (text) => {
       navigator.clipboard.writeText(text);
-      AnMessage({
-        message: "复制成功!",
-        type: "success",
-      });
+			console.log("复制成功!")
     };
   } else {
     copyText = (text) => {
@@ -242,10 +239,7 @@ export function copyText(text: string) {
       input.select();
       document.execCommand("copy");
       document.body.removeChild(input);
-      AnMessage({
-        message: "复制成功!",
-        type: "success",
-      });
+      console.log("复制成功!")
     };
   }
   copyText(text);
